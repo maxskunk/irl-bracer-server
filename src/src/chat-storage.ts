@@ -9,7 +9,7 @@ export class ChatStorage {
     public addMsg(newMsg: Msg) {
         this._msgs.push(newMsg);
         if (this._msgs.length > LINES_TO_KEEP) {
-            this._msgs.splice(LINES_TO_KEEP - 1, 1);
+            this._msgs.splice(0, 1);
         }
     }
 

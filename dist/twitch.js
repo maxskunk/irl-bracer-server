@@ -32,7 +32,6 @@ class Twitch {
     connectToChannel(channel) {
         cjs.Init(channel);
         cjs.onChat = (user, message, flags, self, extra) => {
-            console.log("CHAT RECIEVED:" + JSON.stringify(extra));
             this.onChatRecieved(user, message);
         };
         this.ChatMessage = new rxjs_1.Observable((observer) => {
