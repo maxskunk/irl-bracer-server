@@ -30,19 +30,24 @@ class Twitch {
         this.ChatMessage = new rxjs_1.Observable();
     }
     connectToChannel(channel) {
+        this._channel = channel;
         cjs.Init(channel);
         cjs.onChat = (user, message, flags, self, extra) => {
-            this.onChatRecieved(user, message);
+            this.onChatRecieved(user, message, flags, extra);
         };
         this.ChatMessage = new rxjs_1.Observable((observer) => {
             this.subscriber = observer;
         });
     }
-    onChatRecieved(displayName, msg) {
+    onChatRecieved(displayName, msg, flags, extra) {
         const sendMsg = new msg_model_1.Msg();
+        sendMsg.userColor = extra.userColor;
         sendMsg.msg = msg;
         sendMsg.userName = displayName;
         this.subscriber.next(sendMsg);
+    }
+    sendMessage(msg) {
+        cjs.Say(msg, this._channel);
     }
 }
 exports.Twitch = Twitch;

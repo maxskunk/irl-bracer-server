@@ -24,7 +24,7 @@ app.use(cors());
 //connect to twitch
 const twitch: Twitch = new Twitch();
 const storage: ChatStorage = new ChatStorage();
-const sServer: SocketServer = new SocketServer(io, storage);
+const sServer: SocketServer = new SocketServer(io, storage, twitch);
 twitch.connectToChannel("zokyamedia");
 
 twitch.ChatMessage.subscribe(res => {
