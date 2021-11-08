@@ -10,7 +10,7 @@ class SocketServer {
         this._chatStorage = storage;
         io.on('connection', (socket) => {
             this._socket = socket;
-            console.log('a user connected FROM 2!!');
+            console.log('a user connected');
             socket.on(MSG_REQUEST, (data) => {
                 console.log("CLIENT REQUESTING MESSAGES");
                 // this._socket.emit(MSG_PAYLOAD, "PAYLOAD")

@@ -23,7 +23,9 @@ exports.Twitch = void 0;
 const ComfyJS = __importStar(require("comfy.js"));
 const rxjs_1 = require("rxjs");
 const msg_model_1 = require("./models/msg.model");
+const twitch_chat_1 = require("./twitch-chat");
 const cjs = ComfyJS.default;
+const tc = new twitch_chat_1.TwitchChat();
 class Twitch {
     constructor() {
         this.subscriber = new rxjs_1.Subscriber();
@@ -38,8 +40,12 @@ class Twitch {
         this.ChatMessage = new rxjs_1.Observable((observer) => {
             this.subscriber = observer;
         });
+        //connect to TMI
+        tc.connect();
     }
     onChatRecieved(displayName, msg, flags, extra) {
+        console.log(JSON.stringify(flags));
+        console.log(JSON.stringify(extra));
         const sendMsg = new msg_model_1.Msg();
         sendMsg.userColor = extra.userColor;
         sendMsg.msg = msg;
@@ -47,7 +53,7 @@ class Twitch {
         this.subscriber.next(sendMsg);
     }
     sendMessage(msg) {
-        cjs.Say(msg, this._channel);
+        tc.say(msg);
     }
 }
 exports.Twitch = Twitch;
