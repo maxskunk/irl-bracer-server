@@ -11,10 +11,10 @@ const io = new Server(server, {
     }
 });
 import { ChatStorage } from './chat-storage';
-import { SocketServer } from './socket-srv';
+import { SocketServer } from '../services/socket-srv';
 import { Twitch } from './twitch';
 
-import { TwitchChat } from './twitch-chat';
+import { TwitchChat } from '../services/twitch-chat';
 
 
 //IO Constants

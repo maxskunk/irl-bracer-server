@@ -1,7 +1,7 @@
 import * as ComfyJS from 'comfy.js';
 import { Observable, Subscriber } from 'rxjs';
 import { Msg } from './models/msg.model';
-import { TwitchChat } from './twitch-chat';
+import { TwitchChat } from '../services/twitch-chat';
 
 const cjs = ComfyJS.default;
 const tc: TwitchChat = new TwitchChat();
