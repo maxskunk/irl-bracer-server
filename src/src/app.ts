@@ -11,8 +11,10 @@ const io = new Server(server, {
     }
 });
 import { ChatStorage } from './chat-storage';
-import { SocketServer } from './socket-srv';
+import { SocketServer } from '../services/socket-srv';
 import { Twitch } from './twitch';
+
+import { TwitchChat } from '../services/twitch-chat';
 
 
 //IO Constants
@@ -25,6 +27,10 @@ app.use(cors());
 const twitch: Twitch = new Twitch();
 const storage: ChatStorage = new ChatStorage();
 const sServer: SocketServer = new SocketServer(io, storage, twitch);
+
+const tc: TwitchChat = new TwitchChat();
+
+
 twitch.connectToChannel("zokyamedia");
 
 twitch.ChatMessage.subscribe(res => {
@@ -33,20 +39,6 @@ twitch.ChatMessage.subscribe(res => {
     storage.addMsg(res);
     sServer.sendMsgesToClient(storage.getHistory());
 });
-// app.get('/', (req, res) => {
-//     res.sendFile(__dirname + '/index.html');
-// });
-
-
-// io.on('connection', (socket) => {
-//     console.log('a user connected');
-//     socket.on(MSG_REQUEST, function (data) {
-//         console.log("CLIENT REQUESTING MESSAGES");
-//     });
-
-
-// });
-
 server.listen(3000, () => {
     console.log('listening on *:3000');
 });

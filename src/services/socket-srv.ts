@@ -1,6 +1,6 @@
-import { ChatStorage } from "./chat-storage";
-import { Msg } from "./models/msg.model";
-import { Twitch } from "./twitch";
+import { ChatStorage } from "../src/chat-storage";
+import { Msg } from "../src/models/msg.model";
+import { Twitch } from "../src/twitch";
 
 const MSG_REQUEST: string = "msg_request";
 const MSG_PAYLOAD: string = "msg_payload";
@@ -17,7 +17,7 @@ export class SocketServer {
 
         io.on('connection', (socket) => {
             this._socket = socket;
-            console.log('a user connected FROM 2!!');
+            console.log('a user connected');
             socket.on(MSG_REQUEST, (data) => {
                 console.log("CLIENT REQUESTING MESSAGES");
                 // this._socket.emit(MSG_PAYLOAD, "PAYLOAD")
@@ -34,7 +34,7 @@ export class SocketServer {
     }
 
     public sendMsgesToClient(msgs: Msg[]) {
-        console.log("SENDING MESSAGES: " + msgs);
+        console.log("SENDING MESSAGS TO CLIENT: " + Msg.length);
         this._socket.emit(MSG_PAYLOAD, msgs);
     }
 }

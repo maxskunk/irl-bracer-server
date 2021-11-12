@@ -1,8 +1,10 @@
 import * as ComfyJS from 'comfy.js';
 import { Observable, Subscriber } from 'rxjs';
 import { Msg } from './models/msg.model';
+import { TwitchChat } from '../services/twitch-chat';
 
 const cjs = ComfyJS.default;
+const tc: TwitchChat = new TwitchChat();
 
 export class Twitch {
     private subscriber: Subscriber<Msg> = new Subscriber<Msg>();
@@ -19,8 +21,14 @@ export class Twitch {
         this.ChatMessage = new Observable<Msg>((observer) => {
             this.subscriber = observer;
         });
+
+        //connect to TMI
+        tc.connect();
     }
+
     private onChatRecieved(displayName: string, msg: string, flags: ComfyJS.OnMessageFlags, extra: ComfyJS.OnMessageExtra) {
+        console.log(JSON.stringify(flags));
+        console.log(JSON.stringify(extra));
 
         const sendMsg = new Msg();
         sendMsg.userColor = extra.userColor;
@@ -30,6 +38,6 @@ export class Twitch {
     }
 
     public sendMessage(msg: string) {
-        cjs.Say(msg, this._channel);
+        tc.say(msg);
     }
 }
