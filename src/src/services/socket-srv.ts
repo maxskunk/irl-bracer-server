@@ -1,6 +1,6 @@
-import { ChatStorage } from "../src/chat-storage";
-import { Msg } from "../src/models/msg.model";
-import { Twitch } from "../src/twitch";
+import { ChatStorage } from "../chat-storage";
+import { Msg } from "../models/msg.model";
+import { Twitch } from "../twitch";
 
 const MSG_REQUEST: string = "msg_request";
 const MSG_PAYLOAD: string = "msg_payload";

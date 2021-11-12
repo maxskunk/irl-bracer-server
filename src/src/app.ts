@@ -11,7 +11,7 @@ const io = new Server(server, {
     }
 });
 import { ChatStorage } from './chat-storage';
-import { SocketServer } from '../services/socket-srv';
+import { SocketServer } from './services/socket-srv';
 import { Twitch } from './twitch';
 import { TwitchChat } from './twitch-chat';
 
