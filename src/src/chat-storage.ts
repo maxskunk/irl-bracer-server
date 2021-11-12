@@ -1,6 +1,6 @@
 import { Msg } from "./models/msg.model";
 
-const LINES_TO_KEEP: number = 5;
+const LINES_TO_KEEP: number = 100;
 
 export class ChatStorage {
 

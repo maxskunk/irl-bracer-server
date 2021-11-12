@@ -7,7 +7,7 @@ export class TwitchChat {
             username: 'zokyamedia',
             password: 'oauth:'
         },
-        channels: ['zokyamedia']
+        channels: ['zokymedia']
     });
     public connect() {
         this.client.connect();

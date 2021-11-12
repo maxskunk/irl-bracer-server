@@ -34,7 +34,7 @@ export class SocketServer {
     }
 
     public sendMsgesToClient(msgs: Msg[]) {
-        console.log("SENDING MESSAGES: " + msgs);
+        console.log("SENDING MESSAGS TO CLIENT: " + Msg.length);
         this._socket.emit(MSG_PAYLOAD, msgs);
     }
 }

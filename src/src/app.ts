@@ -1,6 +1,3 @@
-const apiKey = process.env.API_KEY
-console.log(apiKey)
-
 const express = require('express');
 var cors = require('cors')
 const app = express();
