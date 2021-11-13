@@ -14,7 +14,6 @@ import { ChatStorage } from './chat-storage';
 import { OBSService } from './services/obs-serv';
 import { SocketServer } from './services/socket-srv';
 import { Twitch } from './twitch';
-import { TwitchChat } from './twitch-chat';
 
 
 
@@ -36,14 +35,14 @@ OBSServ.preivewImage.subscribe(res => {
     sServer.sendPreviewToClient(res);
 });
 
-// twitch.connectToChannel("zokyamedia");
+twitch.connectToChannel("zokyamedia");
 
-// twitch.ChatMessage.subscribe(res => {
-//     console.log(res.userName + " says " + res.msg);
-//     //store message
-//     storage.addMsg(res);
-//     sServer.sendMsgesToClient(storage.getHistory());
-// });
+twitch.ChatMessage.subscribe(res => {
+    console.log(res.userName + " says " + res.msg);
+    //store message
+    storage.addMsg(res);
+    sServer.sendMsgesToClient(storage.getHistory());
+});
 
 server.listen(3000, () => {
     console.log('listening on *:3000');

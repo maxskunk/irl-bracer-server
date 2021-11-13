@@ -1,4 +1,3 @@
-import { Observable } from "rxjs";
 import { ChatStorage } from "../chat-storage";
 import { Msg } from "../models/msg.model";
 import { Twitch } from "../twitch";
