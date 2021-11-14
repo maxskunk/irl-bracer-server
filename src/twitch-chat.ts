@@ -1,11 +1,12 @@
 import * as tmi from 'tmi.js';
+import config from './twitch-config.json';
 
 export class TwitchChat {
     private client = new tmi.Client({
         options: { debug: true },
         identity: {
-            username: 'zokyamedia',
-            password: 'oauth:'
+            username: config.twitchUserName,
+            password: config.twitchOauth
         },
         channels: ['zokymedia']
     });
@@ -25,6 +26,6 @@ export class TwitchChat {
         });
     }
     public say(msg) {
-        this.client.say('zokyamedia', msg);
+        this.client.say(config.twitchChannel, msg);
     }
 }

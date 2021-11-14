@@ -14,6 +14,7 @@ import { ChatStorage } from './chat-storage';
 import { OBSService } from './services/obs-serv';
 import { SocketServer } from './services/socket-srv';
 import { Twitch } from './twitch';
+import config from './twitch-config.json';
 
 
 
@@ -35,7 +36,7 @@ OBSServ.preivewImage.subscribe(res => {
     sServer.sendPreviewToClient(res);
 });
 
-twitch.connectToChannel("zokyamedia");
+twitch.connectToChannel(config.twitchChannel);
 
 twitch.ChatMessage.subscribe(res => {
     console.log(res.userName + " says " + res.msg);

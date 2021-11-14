@@ -1,4 +1,5 @@
 import { Observable, Subscriber } from "rxjs";
+import config from './../twitch-config.json';
 
 const OBSWebSocket = require('obs-websocket-js');
 //import * as OBSWebSocket from 'obs-websocket-js';
@@ -32,7 +33,7 @@ export class OBSService {
     }
 
     private async connectToObs() {
-        return obs.connect({ address: 'localhost:4444', password: 'poopinmybutt' });
+        return obs.connect({ address: config.obsAddress, password: 'poopinmybutt' });
     }
 
     public async getSceneList(): Promise<any> {
@@ -42,6 +43,8 @@ export class OBSService {
     public getPreview() {
         obs.send('TakeSourceScreenshot', { sourceName: "MAIN", embedPictureFormat: 'png', width: 960, height: 540 }).then((data) => {
             this.subscriber.next(data.img);
+        }).catch((error) => {
+            console.log("WE GOT ERROR GETTING IMAGE");
         });
 
     }
