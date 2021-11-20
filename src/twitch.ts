@@ -18,6 +18,10 @@ export class Twitch {
         cjs.onChat = (user, message, flags, self, extra) => {
             this.onChatRecieved(user, message, flags, extra);
         }
+        cjs.onCommand = (user, cmd, message, flags, extra) => {
+            this.onChatRecieved(user, message, flags, extra);
+        }
+
         this.ChatMessage = new Observable<Msg>((observer) => {
             this.subscriber = observer;
         });
