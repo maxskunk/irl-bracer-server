@@ -19,7 +19,7 @@ export class Twitch {
             this.onChatRecieved(user, message, flags, extra);
         }
         cjs.onCommand = (user, cmd, message, flags, extra) => {
-            this.onChatRecieved(user, message, flags, extra);
+            this.onChatRecieved(user, "!" + cmd + " " + message, flags, extra);
         }
 
         this.ChatMessage = new Observable<Msg>((observer) => {
@@ -31,12 +31,10 @@ export class Twitch {
     }
 
     private onChatRecieved(displayName: string, msg: string, flags: ComfyJS.OnMessageFlags, extra: ComfyJS.OnMessageExtra) {
-        console.log(JSON.stringify(flags));
-        console.log(JSON.stringify(extra));
-
         const sendMsg = new Msg();
         sendMsg.userColor = extra.userColor;
         sendMsg.msg = msg;
+        sendMsg.id = extra.id;
         sendMsg.userName = displayName;
         this.subscriber.next(sendMsg);
     }

@@ -5,8 +5,9 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
+    //MAY WANT TO MAKE THIS MORE RESTRICTIVE IN PRODUCTION
     cors: {
-        origin: "http://localhost:4200",
+        origin: "*",
         methods: ["GET", "POST"]
     }
 });
