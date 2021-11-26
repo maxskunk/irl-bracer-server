@@ -15,42 +15,42 @@ export class SocketServer {
     private _socket: any;
     private _chatStorage: ChatStorage;
     private _obsServ: OBSService;
+    private _twitch: Twitch;
 
-    constructor(io: any, storage: ChatStorage, twitch: Twitch, obsServ: OBSService) {
-        this._io = io;
+    constructor(storage: ChatStorage, twitch: Twitch, obsServ: OBSService) {
+
         this._obsServ = obsServ;
         this._chatStorage = storage;
+        this._twitch = twitch;
 
-        io.on('connection', (socket) => {
-            this._socket = socket;
-            console.log('a user connected');
-            socket.on(MSG_REQUEST, (data) => {
-                console.log("CLIENT REQUESTING MESSAGES");
-                // this._socket.emit(MSG_PAYLOAD, "PAYLOAD")
-                this.sendMsgesToClient(this._chatStorage.getHistory());
-            });
 
-            socket.on(MSG_CLIENT_MSG, (data) => {
-                console.log("CLIENT SENT MESSAGE: " + data);
-                // this._socket.emit(MSG_PAYLOAD, "PAYLOAD")
-                //this.sendMsgesToClient(this._chatStorage.getHistory());
-                twitch.sendMessage(data);
-            });
+    }
 
-            socket.on(IMG_REQUEST, () => {
-                this.handleImgRequest();
+    public connectAuthenticatedSocket(socket: any) {
+        // this._io = io;
+        console.log("CONNECT AUTH");
+        // io.on('connection', (socket) => {
+        this._socket = socket;
+        console.log('a user connected');
+        socket.on(MSG_REQUEST, (data) => {
+            console.log("CLIENT REQUESTING MESSAGES");
+            this.sendMsgesToClient(this._chatStorage.getHistory());
+        });
 
-                // this._socket.emit(MSG_PAYLOAD, "PAYLOAD")
-                //this.sendMsgesToClient(this._chatStorage.getHistory());
-                //twitch.sendMessage(data);
+        socket.on(MSG_CLIENT_MSG, (data) => {
+            console.log("CLIENT SENT MESSAGE: " + data);
+            this._twitch.sendMessage(data);
+        });
 
-            });
+        socket.on(IMG_REQUEST, () => {
+            this.handleImgRequest();
         });
     }
 
     public sendMsgesToClient(msgs: Msg[]) {
         console.log("SENDING MESSAGS TO CLIENT: " + Msg.length);
         this._socket.emit(MSG_PAYLOAD, msgs);
+
     }
 
     public sendPreviewToClient(img: Blob) {
@@ -58,7 +58,6 @@ export class SocketServer {
     }
 
     public async handleImgRequest() {
-        console.log("CLIENT REQUESTED IMAGE");
         this._obsServ.getPreview();
     }
 
