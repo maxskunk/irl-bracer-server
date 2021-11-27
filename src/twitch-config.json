@@ -3,5 +3,6 @@
     "twitchOauth": "oauth:<oauth>",
     "twitchChannel": "zokyamedia",
     "obsAddress": "localhost:4444",
-    "obsPassword": ""
+    "obsPassword": "",
+    "appPassword": ""
 }
